@@ -16,13 +16,22 @@ app = FastAPI(
 )
 
 
+allowed_origins = [
+    "https://tenwatradingandlogistics.com",
+    "https://www.tenwatradingandlogistics.com",
+    "https://tenwa-frontend.vercel.app",
+    "https://tenwa-frontend-md2gbto90-brad-klaus-projects.vercel.app",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+
+if settings.FRONTEND_URL and settings.FRONTEND_URL not in allowed_origins:
+    allowed_origins.append(settings.FRONTEND_URL)
+
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        settings.FRONTEND_URL,
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
