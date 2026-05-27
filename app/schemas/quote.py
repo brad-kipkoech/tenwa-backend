@@ -1,4 +1,5 @@
 from datetime import datetime
+from decimal import Decimal
 from typing import Optional
 
 from pydantic import BaseModel, EmailStr
@@ -10,6 +11,11 @@ class QuoteCreate(BaseModel):
     phone: str
 
     customerType: str
+
+    # general = normal quote request
+    # import = import request
+    requestType: str = "general"
+
     serviceType: str
     commodityType: str
 
@@ -23,6 +29,11 @@ class QuoteCreate(BaseModel):
     length: Optional[str] = None
     width: Optional[str] = None
     height: Optional[str] = None
+
+    # Import-specific fields
+    hasHsCode: Optional[str] = None
+    hasCertificateOfConformity: Optional[str] = None
+    commercialValueUsd: Optional[Decimal] = None
 
     urgency: str = "Normal"
     contactMethod: str = "Phone"
@@ -41,6 +52,8 @@ class QuoteResponse(BaseModel):
     phone: str
 
     customerType: str
+    requestType: str
+
     serviceType: str
     commodityType: str
 
@@ -54,6 +67,11 @@ class QuoteResponse(BaseModel):
     length: Optional[str] = None
     width: Optional[str] = None
     height: Optional[str] = None
+
+    # Import-specific fields
+    hasHsCode: Optional[str] = None
+    hasCertificateOfConformity: Optional[str] = None
+    commercialValueUsd: Optional[Decimal] = None
 
     urgency: str
     contactMethod: str

@@ -3,7 +3,6 @@ from collections import Counter
 from datetime import datetime
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy import extract, func
 from sqlalchemy.orm import Session
 
 from app.database import get_db
@@ -30,6 +29,7 @@ def quote_to_response(quote: QuoteRequest) -> QuoteResponse:
         email=quote.email,
         phone=quote.phone,
         customerType=quote.customer_type,
+        requestType=quote.request_type,
         serviceType=quote.service_type,
         commodityType=quote.commodity_type,
         pieces=quote.pieces,
@@ -40,6 +40,9 @@ def quote_to_response(quote: QuoteRequest) -> QuoteResponse:
         length=quote.length,
         width=quote.width,
         height=quote.height,
+        hasHsCode=quote.has_hs_code,
+        hasCertificateOfConformity=quote.has_certificate_of_conformity,
+        commercialValueUsd=quote.commercial_value_usd,
         urgency=quote.urgency,
         contactMethod=quote.contact_method,
         notes=quote.notes,
