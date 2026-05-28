@@ -1,6 +1,7 @@
 from calendar import month_abbr
 from collections import Counter
 from datetime import datetime
+from app.security.admin_auth import require_admin_user
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
@@ -19,7 +20,11 @@ from app.schemas.quote import QuoteResponse, QuoteStatusUpdate
 from app.schemas.shipment import ShipmentCreate, ShipmentResponse, ShipmentUpdateRequest
 
 
-router = APIRouter(prefix="/api/admin", tags=["Admin"])
+router = APIRouter(
+    prefix="/api/admin",
+    tags=["Admin"],
+    dependencies=[Depends(require_admin_user)],
+)
 
 
 def quote_to_response(quote: QuoteRequest) -> QuoteResponse:

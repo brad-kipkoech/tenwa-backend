@@ -17,6 +17,10 @@ class Settings(BaseSettings):
     EMAIL_FROM: str = "Tenwa Logistics <onboarding@resend.dev>"
     EMAIL_TO: str | None = None
 
+    SUPABASE_URL: str | None = None
+    SUPABASE_ANON_KEY: str | None = None
+    ADMIN_ALLOWED_EMAILS: str = ""
+
     class Config:
         env_file = ".env"
 
