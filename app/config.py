@@ -1,4 +1,4 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
@@ -21,8 +21,10 @@ class Settings(BaseSettings):
     SUPABASE_ANON_KEY: str | None = None
     ADMIN_ALLOWED_EMAILS: str = ""
 
-    class Config:
-        env_file = ".env"
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        extra="ignore",
+    )
 
 
 settings = Settings()
